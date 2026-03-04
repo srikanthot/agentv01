@@ -1,0 +1,31 @@
+# Secrets
+.env
+
+# Virtual environments
+.venv*/
+venv*/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Testing
+.pytest_cache/
+.coverage
+
+# Runtime / app data
+*.log
+frontend/.chat_history.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
