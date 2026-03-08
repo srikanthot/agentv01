@@ -18,7 +18,8 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
+_backend_port = os.getenv("BACKEND_PORT", "8000")
+BACKEND_URL = os.getenv("BACKEND_URL", f"http://localhost:{_backend_port}")
 
 # ── Page config ────────────────────────────────────────────────────────────────
 st.set_page_config(
