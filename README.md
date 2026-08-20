@@ -1,11 +1,11 @@
-# Streaming RAG Chatbot — SSE + FastAPI
+# Streaming RAG Chatbot — Technical-Manual Q&A (SSE + FastAPI)
 
-> A streaming RAG chatbot: ask a question and watch a grounded, citation-backed answer stream in token-by-token over Server-Sent Events. FastAPI backend on the Microsoft Agent Framework, with a Streamlit UI.
+> An end-to-end chatbot (Streamlit frontend + FastAPI backend) that answers questions over **technical manuals**: grounded, citation-backed answers streaming in token-by-token over Server-Sent Events. The manual index it retrieves from is built by [rag-data-ingestion-pipeline-azure](https://github.com/srikanthot/rag-data-ingestion-pipeline-azure).
 
 ![python](https://img.shields.io/badge/python-3.11-blue) ![cloud](https://img.shields.io/badge/Azure-commercial-0078D4) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ## What this project is
-A focused demonstration of a **low-latency streaming** RAG pipeline — the retrieval → confidence-gate → stream loop that makes a chatbot feel responsive while staying grounded.
+A focused demonstration of a **low-latency streaming** RAG pipeline over technical-manual content — the retrieval → confidence-gate → stream loop that makes a chatbot feel responsive while staying grounded. Pair it with the [manual indexing pipeline](https://github.com/srikanthot/rag-data-ingestion-pipeline-azure) that ingests, chunks, and embeds the PDFs this chatbot answers from.
 
 ## What it actually does (implemented)
 - **SSE token streaming** with keepalive pings (no long blank waits).
