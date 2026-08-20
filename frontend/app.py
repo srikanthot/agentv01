@@ -1,4 +1,4 @@
-"""MANGOS Tech Manual Agent — Streamlit chat UI.
+"""Tech Manual Agent — Streamlit chat UI.
 
 Connects to the FastAPI backend via Server-Sent Events (SSE).
 Tokens stream live into the chat bubble. Citations arrive as a named
@@ -21,15 +21,15 @@ load_dotenv(override=True)
 _backend_port = os.getenv("BACKEND_PORT", "8000")
 BACKEND_URL = os.getenv("BACKEND_URL", f"http://localhost:{_backend_port}")
 
-# ── Page config ────────────────────────────────────────────────────────────────
+# ── Page config ──────────────────────────────────────────────────
 st.set_page_config(
-    page_title="MANGOS Tech Manual Agent",
+    page_title="Tech Manual Agent",
     page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# ── Global CSS ─────────────────────────────────────────────────────────────────
+# ── Global CSS ───────────────────────────────────────────────────
 st.markdown("""
 <style>
     :root {
@@ -92,14 +92,14 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ── Session state ──────────────────────────────────────────────────────────────
+# ── Session state ────────────────────────────────────────────────
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
 
 
-# ── SSE consumer ──────────────────────────────────────────────────────────────
+# ── SSE consumer ─────────────────────────────────────────────────
 def _token_stream(
     sse_response: requests.Response,
     citations_out: list,
@@ -128,7 +128,7 @@ def _token_stream(
             yield event.data.replace("\\n", "\n")
 
 
-# ── Helpers ────────────────────────────────────────────────────────────────────
+# ── Helpers ──────────────────────────────────────────────────────
 def render_citations(citations: list) -> None:
     """Render citations as a collapsible expander panel."""
     with st.expander(f"📚 Sources ({len(citations)})", expanded=False):
@@ -168,7 +168,7 @@ def render_history() -> None:
                 render_citations(msg["citations"])
 
 
-# ── Sidebar ────────────────────────────────────────────────────────────────────
+# ── Sidebar ──────────────────────────────────────────────────────
 def render_sidebar() -> None:
     with st.sidebar:
         st.markdown("""
@@ -192,7 +192,7 @@ def render_sidebar() -> None:
                 </g>
                 <circle cx="28" cy="28" r="6" fill="white"/>
                 <text x="62" y="36" font-family="Arial,sans-serif" font-size="26"
-                      font-weight="bold" fill="#1e3a5f">MANGOS</text>
+                      font-weight="bold" fill="#1e3a5f">TMA</text>
             </svg>
         </div>
         """, unsafe_allow_html=True)
@@ -222,7 +222,7 @@ def render_sidebar() -> None:
         st.caption(f"Session `{st.session_state.session_id[:8]}…`")
 
 
-# ── Header ─────────────────────────────────────────────────────────────────────
+# ── Header ───────────────────────────────────────────────────────
 def render_header() -> None:
     st.markdown("""
     <div style="background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
@@ -233,20 +233,20 @@ def render_header() -> None:
             ⚡ Tech Manual Agent
         </div>
         <div style="font-size:0.88rem; color:rgba(255,255,255,0.85);">
-            Ask questions against MANGOS technical documentation.
+            Ask questions against your indexed technical manuals.
             Answers are grounded in retrieved manual content with source citations.
         </div>
     </div>
     """, unsafe_allow_html=True)
 
 
-# ── Main ───────────────────────────────────────────────────────────────────────
+# ── Main ─────────────────────────────────────────────────────────
 def main() -> None:
     render_sidebar()
     render_header()
     render_history()
 
-    if prompt := st.chat_input("Ask a question about MANGOS technical manuals…"):
+    if prompt := st.chat_input("Ask a question about your technical manuals…"):
         # Show user message immediately
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
@@ -306,7 +306,7 @@ def main() -> None:
     st.markdown(
         '<div style="text-align:center; padding: 1rem 0; margin-top:1.5rem; '
         'color:#718096; font-size:0.78rem;">'
-        'MANGOS Tech Manual Agent · Powered by Azure AI · commercial Azure'
+        'Tech Manual Agent · Powered by Azure AI · commercial Azure'
         '</div>',
         unsafe_allow_html=True,
     )
